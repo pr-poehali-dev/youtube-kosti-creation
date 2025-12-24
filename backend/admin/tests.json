@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "Get admin stats",
+      "method": "GET",
+      "queryStringParameters": {
+        "action": "stats"
+      },
+      "headers": {
+        "X-User-Role": "admin"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "stats": {}
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

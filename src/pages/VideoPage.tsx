@@ -102,8 +102,8 @@ export default function VideoPage({ currentUser }: VideoPageProps) {
   };
 
   return (
-    <div className="flex gap-6 p-6">
-      <div className="flex-1">
+    <div className="flex flex-col lg:flex-row gap-6 p-4 sm:p-6">
+      <div className="flex-1 w-full lg:w-auto">
         <div className="bg-black rounded-xl overflow-hidden mb-4">
           <video 
             controls 
@@ -116,8 +116,8 @@ export default function VideoPage({ currentUser }: VideoPageProps) {
 
         <h1 className="text-xl font-bold mb-3">{video.title}</h1>
 
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="flex items-center gap-3 flex-1">
+        <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-4 mb-4">
+          <div className="flex items-center gap-3 flex-1 w-full">
             <Avatar className="h-10 w-10">
               <AvatarImage src={video.channelAvatar} />
               <AvatarFallback>{video.channel[0]}</AvatarFallback>
@@ -134,7 +134,7 @@ export default function VideoPage({ currentUser }: VideoPageProps) {
             </Button>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <div className="flex items-center bg-[#272727] rounded-full overflow-hidden">
               <Button
                 variant="ghost"
@@ -154,9 +154,12 @@ export default function VideoPage({ currentUser }: VideoPageProps) {
               </Button>
             </div>
 
-            <Button variant="ghost" className="bg-[#272727] hover:bg-[#3f3f3f] rounded-full">
+            <Button variant="ghost" className="bg-[#272727] hover:bg-[#3f3f3f] rounded-full hidden sm:flex">
               <Icon name="Share2" size={20} className="mr-2" />
               Поделиться
+            </Button>
+            <Button variant="ghost" size="icon" className="bg-[#272727] hover:bg-[#3f3f3f] rounded-full sm:hidden">
+              <Icon name="Share2" size={20} />
             </Button>
 
             <DropdownMenu>
@@ -283,8 +286,8 @@ export default function VideoPage({ currentUser }: VideoPageProps) {
         </div>
       </div>
 
-      <div className="w-96 flex-shrink-0">
-        <div className="space-y-2">
+      <div className="w-full lg:w-96 flex-shrink-0">
+        <div className="grid grid-cols-1 gap-2">
           {relatedVideos.map((video) => (
             <div
               key={video.id}

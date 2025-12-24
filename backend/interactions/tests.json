@@ -1,0 +1,16 @@
+{
+  "tests": [
+    {
+      "name": "Get comments for video",
+      "method": "GET",
+      "queryStringParameters": {
+        "video_id": "1"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "comments": []
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

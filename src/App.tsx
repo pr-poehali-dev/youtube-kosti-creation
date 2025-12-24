@@ -8,6 +8,7 @@ import LibraryPage from './pages/LibraryPage';
 import HistoryPage from './pages/HistoryPage';
 import SubscriptionsPage from './pages/SubscriptionsPage';
 import TrendsPage from './pages/TrendsPage';
+import AdminPage from './pages/AdminPage';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import AuthModal from './components/AuthModal';
@@ -17,26 +18,38 @@ function App() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const handleLogin = (email: string, password: string) => {
-    setCurrentUser({ 
-      id: '1', 
-      name: 'Пользователь', 
-      email, 
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + email,
-      subscribers: 1234
-    });
-    setIsAuthModalOpen(false);
+  const handleLogin = async (email: string, password: string) => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/ca9a3cbe-8dd1-4252-b6a2-25f17acd1183', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'login', email, password }),
+      });
+      const data = await response.json();
+      if (data.user) {
+        setCurrentUser(data.user);
+        setIsAuthModalOpen(false);
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
   };
 
-  const handleRegister = (name: string, email: string, password: string) => {
-    setCurrentUser({ 
-      id: '1', 
-      name, 
-      email, 
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + email,
-      subscribers: 0
-    });
-    setIsAuthModalOpen(false);
+  const handleRegister = async (name: string, email: string, password: string) => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/ca9a3cbe-8dd1-4252-b6a2-25f17acd1183', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'register', email, password, name }),
+      });
+      const data = await response.json();
+      if (data.user) {
+        setCurrentUser(data.user);
+        setIsAuthModalOpen(false);
+      }
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
   };
 
   const handleLogout = () => {
@@ -69,6 +82,7 @@ function App() {
               <Route path="/history" element={<HistoryPage currentUser={currentUser} />} />
               <Route path="/subscriptions" element={<SubscriptionsPage currentUser={currentUser} />} />
               <Route path="/trends" element={<TrendsPage />} />
+              <Route path="/admin" element={<AdminPage currentUser={currentUser} />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>

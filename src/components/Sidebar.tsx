@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, currentUser }: SidebarProps) {
   if (!isOpen) return null;
 
   return (
-    <aside className="fixed left-0 top-14 bottom-0 w-60 bg-[#0F0F0F] border-r border-[#272727] overflow-y-auto z-40">
+    <aside className="fixed left-0 top-14 bottom-0 w-60 bg-[#0F0F0F] border-r border-[#272727] overflow-y-auto z-40 scrollbar-thin scrollbar-thumb-[#272727] scrollbar-track-transparent">
       <nav className="py-2">
         <div className="px-3 space-y-1">
           {menuItems.map((item) => (

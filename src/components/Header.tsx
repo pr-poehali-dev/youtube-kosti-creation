@@ -51,7 +51,7 @@ export default function Header({ currentUser, onAuthClick, onLogout, onMenuClick
         </button>
       </div>
 
-      <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-auto flex gap-2">
+      <form onSubmit={handleSearch} className="flex-1 max-w-2xl mx-auto hidden md:flex gap-2">
         <div className="flex-1 flex">
           <Input
             type="text"
@@ -71,13 +71,13 @@ export default function Header({ currentUser, onAuthClick, onLogout, onMenuClick
         <Button 
           variant="outline"
           size="icon"
-          className="border-[#272727] bg-[#222222] hover:bg-[#333333]"
+          className="border-[#272727] bg-[#222222] hover:bg-[#333333] hidden lg:flex"
         >
           <Icon name="Mic" size={20} />
         </Button>
       </form>
 
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1 sm:gap-2">
         {currentUser ? (
           <>
             <Button 
@@ -126,6 +126,15 @@ export default function Header({ currentUser, onAuthClick, onLogout, onMenuClick
                   <Icon name="Library" size={18} className="mr-2" />
                   Моя библиотека
                 </DropdownMenuItem>
+                {(currentUser.role === 'admin' || currentUser.role === 'moderator') && (
+                  <>
+                    <DropdownMenuSeparator className="bg-[#3f3f3f]" />
+                    <DropdownMenuItem onClick={() => navigate('/admin')} className="cursor-pointer">
+                      <Icon name="Shield" size={18} className="mr-2" />
+                      {currentUser.role === 'admin' ? 'Админ-панель' : 'Модерация'}
+                    </DropdownMenuItem>
+                  </>
+                )}
                 <DropdownMenuSeparator className="bg-[#3f3f3f]" />
                 <DropdownMenuItem onClick={onLogout} className="cursor-pointer text-red-400">
                   <Icon name="LogOut" size={18} className="mr-2" />
